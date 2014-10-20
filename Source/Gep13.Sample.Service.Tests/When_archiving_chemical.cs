@@ -4,49 +4,48 @@ using Gep13.Sample.Model;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Gep13.Sample.Service.Test {
+namespace Gep13.Sample.Service.Test 
+{
     
     [TestFixture]
     public class When_archiving_chemical 
     {
-        private IChemicalRepository _fakeRepository;
-        private IUnitOfWork _fakeUnitOfWork;
-        private ChemicalService _chemicalService;
-
-
+        private IChemicalRepository fakeChemicalRepository;
+        private IUnitOfWork fakeUnitOfWork;
+        private ChemicalService chemicalService;
+        
         [SetUp]
         public void Setup() 
         {
-            _fakeRepository = Substitute.For<IChemicalRepository>();
-            _fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            _chemicalService = new ChemicalService(_fakeRepository, _fakeUnitOfWork);            
+            this.fakeChemicalRepository = Substitute.For<IChemicalRepository>();
+            this.fakeUnitOfWork = Substitute.For<IUnitOfWork>();
+            this.chemicalService = new ChemicalService(this.fakeChemicalRepository, this.fakeUnitOfWork);            
         }
 
         [Test]
         public void Should_return_false_if_unable_to_find_chemical() 
         {
-            _fakeRepository.GetById(1).Returns(x => null);
+            this.fakeChemicalRepository.GetById(1).Returns(x => null);
 
-            var actual = _chemicalService.ArchiveChemical(1);
+            var actual = this.chemicalService.ArchiveChemical(1);
 
             Assert.That(actual, Is.False);
         }
 
         [Test]
-        public void Should_return_true_if_archives_chemical() {
+        public void Should_return_true_if_archives_chemical() 
+        {
             var entity = new Chemical 
             {
                 Id = 1
             };
 
-            _fakeRepository.GetById(1).Returns(x => entity);
+            this.fakeChemicalRepository.GetById(1).Returns(x => entity);
 
-            var actual = _chemicalService.ArchiveChemical(1);
+            var actual = this.chemicalService.ArchiveChemical(1);
 
             Assert.That(actual, Is.True);
             Assert.That(entity.IsArchived, Is.True);
-            
-
         }
     }
 }

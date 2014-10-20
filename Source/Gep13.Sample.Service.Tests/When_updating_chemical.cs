@@ -24,7 +24,9 @@ namespace Gep13.Sample.Service.Test
     [TestFixture]
     public class When_updating_chemical
     {
-        private static Assembly[] assemblies = { Assembly.Load("Gep13.Sample.Service") };
+        private IChemicalRepository fakeChemicalRepository;
+        private IUnitOfWork fakeUnitOfWork;
+        private ChemicalService chemicalService;
 
         [TestFixtureSetUp]
         public void TestFixtureSetup()
@@ -33,13 +35,17 @@ namespace Gep13.Sample.Service.Test
             Mapper.CreateMap<Chemical, ChemicalDTO>();
         }
 
+        [SetUp]
+        public void SetUp()
+        {
+            this.fakeChemicalRepository = Substitute.For<IChemicalRepository>();
+            this.fakeUnitOfWork = Substitute.For<IUnitOfWork>();
+            this.chemicalService = new ChemicalService(this.fakeChemicalRepository, this.fakeUnitOfWork);
+        }
+
         [Test]
         public void Should_update()
         {
-            var fakeRepository = Substitute.For<IChemicalRepository>();
-            var fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            var chemicalService = new ChemicalService(fakeRepository, fakeUnitOfWork);
-
             var toUpdate = new Service.ChemicalDTO
             {
                 Id = 1,
@@ -47,10 +53,10 @@ namespace Gep13.Sample.Service.Test
                 Name = "First"
             };
 
-            var actual = chemicalService.UpdateChemical(toUpdate);
+            var actual = this.chemicalService.UpdateChemical(toUpdate);
 
-            fakeRepository.Received().Update(Arg.Any<Chemical>());
-            fakeUnitOfWork.Received().SaveChanges();
+            this.fakeChemicalRepository.Received().Update(Arg.Any<Chemical>());
+            this.fakeUnitOfWork.Received().SaveChanges();
         }
     }
 }
