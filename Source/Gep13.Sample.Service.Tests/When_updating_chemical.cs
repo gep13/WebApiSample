@@ -49,7 +49,7 @@ namespace Gep13.Sample.Service.Test
 
             var actual = chemicalService.UpdateChemical(toUpdate);
 
-            fakeRepository.Received().Update(Arg.Any<Chemical>());
+            fakeRepository.Received().AddOrUpdate(Arg.Any<Chemical>());
             fakeUnitOfWork.Received().SaveChanges();
         }
     }

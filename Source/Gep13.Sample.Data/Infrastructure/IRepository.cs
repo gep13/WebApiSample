@@ -23,7 +23,11 @@ namespace Gep13.Sample.Data.Infrastructure
 
         T Add(T entity);
 
-        void Update(T entity);
+        /// <summary>
+        /// Takes the entity and stores it, adding it if necessary
+        /// </summary>
+        /// <returns>True if the entity is new, false if it already existed</returns>
+        bool AddOrUpdate(T entity);
 
         void Delete(T entity);
 

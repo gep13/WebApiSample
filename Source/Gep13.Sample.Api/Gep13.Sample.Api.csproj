@@ -64,6 +64,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Gibraltar.Agent">
+      <HintPath>..\packages\Gibraltar.Agent.3.6.0.1923\lib\4.0\Gibraltar.Agent.dll</HintPath>
+    </Reference>
+    <Reference Include="Gibraltar.Agent.EntityFramework">
+      <HintPath>..\packages\Gibraltar.Agent.EntityFramework.3.6.0.1923\lib\net40\Gibraltar.Agent.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>

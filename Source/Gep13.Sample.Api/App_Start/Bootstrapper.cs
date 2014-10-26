@@ -7,6 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+
 namespace Gep13.Sample.Api.App_Start
 {
     using System.Reflection;
@@ -14,6 +15,8 @@ namespace Gep13.Sample.Api.App_Start
 
     using Autofac;
     using Autofac.Integration.WebApi;
+
+    using Gibraltar.Agent.EntityFramework;
 
     using Gep13.Sample.Api.Mappers;
     using Gep13.Sample.Data.Infrastructure;
@@ -24,6 +27,7 @@ namespace Gep13.Sample.Api.App_Start
     {
         public static void Configure()
         {
+            LoupeCommandInterceptor.Register();
             ConfigureAutofacContainer();
             AutoMapperConfiguration.Configure();
         }
