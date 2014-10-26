@@ -81,10 +81,12 @@ namespace Gep13.Sample.Data.Infrastructure
             return this.dbset.Where(where).Count();
         }
 
-        public virtual void Update(T entity)
+        public virtual bool AddOrUpdate(T entity)
         {
             this.dbset.Attach(entity);
-            this.gep13Context.Entry(entity).State = EntityState.Modified;
+            this.Gep13Context.ChangeTracker.DetectChanges();
+
+            return (gep13Context.Entry(entity).State == EntityState.Added);
         }
     }
 }

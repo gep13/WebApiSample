@@ -70,7 +70,7 @@ namespace Gep13.Sample.Service
             if (found != null)
             {
                 found.IsArchived = true;
-                this.repository.Update(found);
+                this.repository.AddOrUpdate(found);
                 this.SaveChanges();
                 return true;
             }
@@ -96,17 +96,10 @@ namespace Gep13.Sample.Service
 
         public bool UpdateChemical(ChemicalDTO chemicalDto)
         {
-            var found = this.GetById(chemicalDto.Id);
-
-            if (found != null)
-            {
-                var entity = Mapper.Map<ChemicalDTO, Chemical>(chemicalDto);
-                this.repository.Update(entity);
-                this.SaveChanges();
-                return true;
-            }
-
-            return false;
+            var entity = Mapper.Map<ChemicalDTO, Chemical>(chemicalDto);
+            bool isNew = repository.AddOrUpdate(entity); //it seemed more sensible to have this return true for new not update
+            this.SaveChanges();
+            return !isNew;
         }
 
         private IEnumerable<Chemical> GetByName(string name)
@@ -114,7 +107,7 @@ namespace Gep13.Sample.Service
             return this.repository.GetMany(s => s.Name == name);
         }
 
-        private Chemical GetById(int id) 
+        private Chemical GetById(int id)
         {
             return this.repository.GetById(id);
         }
