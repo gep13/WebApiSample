@@ -17,17 +17,17 @@ namespace Gep13.Sample.Service.Test
         [SetUp]
         public void Setup() 
         {
-            this.fakeChemicalRepository = Substitute.For<IChemicalRepository>();
-            this.fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            this.chemicalService = new ChemicalService(this.fakeChemicalRepository, this.fakeUnitOfWork);            
+            fakeChemicalRepository = Substitute.For<IChemicalRepository>();
+            fakeUnitOfWork = Substitute.For<IUnitOfWork>();
+            chemicalService = new ChemicalService(fakeChemicalRepository, fakeUnitOfWork);            
         }
 
         [Test]
         public void Should_return_false_if_unable_to_find_chemical() 
         {
-            this.fakeChemicalRepository.GetById(1).Returns(x => null);
+            fakeChemicalRepository.GetById(1).Returns(x => null);
 
-            var actual = this.chemicalService.ArchiveChemical(1);
+            var actual = chemicalService.ArchiveChemical(1);
 
             Assert.That(actual, Is.False);
         }
@@ -40,9 +40,9 @@ namespace Gep13.Sample.Service.Test
                 Id = 1
             };
 
-            this.fakeChemicalRepository.GetById(1).Returns(x => entity);
+            fakeChemicalRepository.GetById(1).Returns(x => entity);
 
-            var actual = this.chemicalService.ArchiveChemical(1);
+            var actual = chemicalService.ArchiveChemical(1);
 
             Assert.That(actual, Is.True);
             Assert.That(entity.IsArchived, Is.True);

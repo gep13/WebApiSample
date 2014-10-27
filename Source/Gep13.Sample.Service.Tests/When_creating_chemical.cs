@@ -34,7 +34,7 @@ namespace Gep13.Sample.Service.Test
 
         [TestFixtureSetUp]
         public void TestFixtureSetup()
-        {           
+        {
             Mapper.CreateMap<ChemicalDto, Chemical>();
             Mapper.CreateMap<Chemical, ChemicalDto>();
         }
@@ -42,30 +42,30 @@ namespace Gep13.Sample.Service.Test
         [SetUp]
         public void SetUp()
         {
-            this.fakeChemicalRepository = Substitute.For<IChemicalRepository>();
-            this.fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            this.chemicalService = new ChemicalService(this.fakeChemicalRepository, this.fakeUnitOfWork);
+            fakeChemicalRepository = Substitute.For<IChemicalRepository>();
+            fakeUnitOfWork = Substitute.For<IUnitOfWork>();
+            chemicalService = new ChemicalService(fakeChemicalRepository, fakeUnitOfWork);
         }
 
         [Test]
         public void Should_create_chemical()
         {
-            this.fakeChemicalRepository.GetMany(Arg.Any<Expression<Func<Chemical, bool>>>()).ReturnsForAnyArgs(x => new List<Chemical>());
-            
-            this.fakeChemicalRepository.Add(Arg.Do<Chemical>(x => x.Id = 1)).Returns(new Chemical { Id = 1 });
-            
-            var chemical = this.chemicalService.AddChemical("First", 110.99);
+            fakeChemicalRepository.GetMany(Arg.Any<Expression<Func<Chemical, bool>>>()).ReturnsForAnyArgs(x => new List<Chemical>());
+
+            fakeChemicalRepository.Add(Arg.Do<Chemical>(x => x.Id = 1)).Returns(new Chemical { Id = 1 });
+
+            var chemical = chemicalService.AddChemical("First", 110.99);
 
             Assert.That(chemical.Id, Is.EqualTo(1));
-            this.fakeUnitOfWork.Received().SaveChanges();
+            fakeUnitOfWork.Received().SaveChanges();
         }
 
         [Test]
-        public void Should_return_null_if_chemical_with_same_name_already_exists() 
+        public void Should_return_null_if_chemical_with_same_name_already_exists()
         {
-            this.fakeChemicalRepository.GetMany(Arg.Any<Expression<Func<Chemical, bool>>>()).ReturnsForAnyArgs(x => new List<Chemical>{ new Chemical{Id=1}});
+            fakeChemicalRepository.GetMany(Arg.Any<Expression<Func<Chemical, bool>>>()).ReturnsForAnyArgs(x => new List<Chemical> { new Chemical { Id = 1 } });
 
-            var chemical = this.chemicalService.AddChemical("First", 110.99);
+            var chemical = chemicalService.AddChemical("First", 110.99);
 
             Assert.That(chemical, Is.Null);
         }

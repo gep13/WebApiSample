@@ -38,9 +38,9 @@ namespace Gep13.Sample.Service.Test
         [SetUp]
         public void SetUp()
         {
-            this.fakeChemicalRepository = Substitute.For<IChemicalRepository>();
-            this.fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            this.chemicalService = new ChemicalService(this.fakeChemicalRepository, this.fakeUnitOfWork);
+            fakeChemicalRepository = Substitute.For<IChemicalRepository>();
+            fakeUnitOfWork = Substitute.For<IUnitOfWork>();
+            chemicalService = new ChemicalService(fakeChemicalRepository, fakeUnitOfWork);
         }
 
         [Test]
@@ -53,10 +53,10 @@ namespace Gep13.Sample.Service.Test
                 Name = "First"
             };
 
-            var actual = this.chemicalService.UpdateChemical(toUpdate);
+            var actual = chemicalService.UpdateChemical(toUpdate);
 
-            this.fakeChemicalRepository.Received().Update(Arg.Any<Chemical>());
-            this.fakeUnitOfWork.Received().SaveChanges();
+            fakeChemicalRepository.Received().Update(Arg.Any<Chemical>());
+            fakeUnitOfWork.Received().SaveChanges();
         }
     }
 }
