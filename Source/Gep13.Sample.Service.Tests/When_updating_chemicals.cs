@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="When_updating_chemical.cs" company="Gary Ewan Park">
+// <copyright file="When_updating_chemicals.cs" company="Gary Ewan Park">
 //   Copyright (c) Gary Ewan Park, 2014, All rights reserved.
 // </copyright>
 // <summary>
@@ -7,14 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Gep13.Sample.Service.Test
+namespace Gep13.Sample.Service.Tests
 {
-    using System.Reflection;
-
-    using AutoMapper;
-
-    using Gep13.Sample.Data.Infrastructure;
-    using Gep13.Sample.Data.Repositories;
     using Gep13.Sample.Model;
 
     using NSubstitute;
@@ -22,27 +16,8 @@ namespace Gep13.Sample.Service.Test
     using NUnit.Framework;
 
     [TestFixture]
-    public class When_updating_chemical
+    public class When_updating_chemicals : CommonTestSetup
     {
-        private IChemicalRepository fakeChemicalRepository;
-        private IUnitOfWork fakeUnitOfWork;
-        private ChemicalService chemicalService;
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetup()
-        {
-            Mapper.CreateMap<ChemicalDto, Chemical>();
-            Mapper.CreateMap<Chemical, ChemicalDto>();
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            fakeChemicalRepository = Substitute.For<IChemicalRepository>();
-            fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            chemicalService = new ChemicalService(fakeChemicalRepository, fakeUnitOfWork);
-        }
-
         [Test]
         public void Should_update()
         {

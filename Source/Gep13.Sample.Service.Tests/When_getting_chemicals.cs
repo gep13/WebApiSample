@@ -7,15 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Gep13.Sample.Service.Test
+namespace Gep13.Sample.Service.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
 
-    using AutoMapper;
-
-    using Gep13.Sample.Data.Infrastructure;
-    using Gep13.Sample.Data.Repositories;
     using Gep13.Sample.Model;
 
     using NSubstitute;
@@ -23,25 +19,13 @@ namespace Gep13.Sample.Service.Test
     using NUnit.Framework;
 
     [TestFixture]
-    public class When_getting_chemicals
+    public class When_getting_chemicals : CommonTestSetup
     {
-        private IChemicalRepository fakeChemicalRepository;
-        private IUnitOfWork fakeUnitOfWork;
-        private ChemicalService chemicalService;
         private List<Chemical> chemicals;
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetup()
-        {
-            Mapper.CreateMap<Chemical, ChemicalDto>();
-        }
 
         [SetUp]
         public void SetUp()
         {
-            fakeChemicalRepository = Substitute.For<IChemicalRepository>();
-            fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            chemicalService = new ChemicalService(fakeChemicalRepository, fakeUnitOfWork);
             chemicals = new List<Chemical>
                                  {
                                      { new Chemical { Id = 1, Name = "First" } },

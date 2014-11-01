@@ -26,8 +26,8 @@ namespace Gep13.Sample.Service
 
         public ChemicalService(IChemicalRepository repository, IUnitOfWork unitOfWork)
         {
-            repository = repository;
-            unitOfWork = unitOfWork;
+            this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "This needs to be looked at")]

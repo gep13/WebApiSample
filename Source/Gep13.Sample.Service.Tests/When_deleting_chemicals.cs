@@ -7,10 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Gep13.Sample.Service.Test 
+namespace Gep13.Sample.Service.Tests 
 {
-    using Gep13.Sample.Data.Infrastructure;
-    using Gep13.Sample.Data.Repositories;
     using Gep13.Sample.Model;
 
     using NSubstitute;
@@ -18,20 +16,8 @@ namespace Gep13.Sample.Service.Test
     using NUnit.Framework;
 
     [TestFixture]
-    public class When_deleting_chemicals 
+    public class When_deleting_chemicals : CommonTestSetup
     {
-        private IChemicalRepository fakeChemicalRepository;
-        private IUnitOfWork fakeUnitOfWork;
-        private ChemicalService chemicalService;
-        
-        [SetUp]
-        public void SetUp()
-        {
-            fakeChemicalRepository = Substitute.For<IChemicalRepository>();
-            fakeUnitOfWork = Substitute.For<IUnitOfWork>();
-            chemicalService = new ChemicalService(fakeChemicalRepository, fakeUnitOfWork);
-        }
-
         [Test]
         public void Should_delete_chemical()
         {
